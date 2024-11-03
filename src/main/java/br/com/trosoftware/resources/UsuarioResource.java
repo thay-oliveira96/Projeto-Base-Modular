@@ -1,5 +1,8 @@
 package br.com.trosoftware.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,5 +25,12 @@ public class UsuarioResource {
 	public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer id) {
 		Usuario obj = service.findById(id);
 		return ResponseEntity.ok(new UsuarioDTO(obj));
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<UsuarioDTO>> findAll() {
+		List<Usuario> list = service.findAll();
+		List<UsuarioDTO> listDTO = list.stream().map(obj -> new UsuarioDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 }

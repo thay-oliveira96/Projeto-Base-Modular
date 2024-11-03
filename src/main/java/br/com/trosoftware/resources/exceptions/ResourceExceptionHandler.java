@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.com.trosoftware.domain.idm.IDMStatus;
 import br.com.trosoftware.services.exceptions.ObjectnotFoundExcption;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -15,7 +16,7 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> bjectnotFoundExcption(ObjectnotFoundExcption ex, HttpServletRequest request) {
 		
 		StandardError error = new StandardError(System.currentTimeMillis(), 
-					HttpStatus.NOT_FOUND.value(), "Object not found", ex.getMessage(), request.getRequestURI());
+					HttpStatus.NOT_FOUND.value(), IDMStatus.STATUS_NOT_FOUND, ex.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 		
