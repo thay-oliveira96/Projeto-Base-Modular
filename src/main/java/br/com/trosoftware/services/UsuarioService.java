@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.trosoftware.domain.Usuario;
+import br.com.trosoftware.domain.idm.IDMException;
 import br.com.trosoftware.repositories.UsuarioRepository;
+import br.com.trosoftware.services.exceptions.ObjectnotFoundExcption;
 
 @Service
 public class UsuarioService {
@@ -16,6 +18,6 @@ public class UsuarioService {
 	
 	public Usuario findById(Integer id) {
 		Optional<Usuario> obj = repository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectnotFoundExcption(IDMException.MSG_EXCEPTION_OBJETO_NAO_ENCONTRADO_ID + id));
 	}
 }

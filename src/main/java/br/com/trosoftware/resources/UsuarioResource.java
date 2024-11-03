@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.trosoftware.domain.Usuario;
+import br.com.trosoftware.domain.dtos.UsuarioDTO;
 import br.com.trosoftware.services.UsuarioService;
 
 @RestController
@@ -18,8 +19,8 @@ public class UsuarioResource {
 	private UsuarioService service;
 	
 	@GetMapping(value  = "/{id}")
-	public ResponseEntity<Usuario> findById(@PathVariable Integer id) {
+	public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer id) {
 		Usuario obj = service.findById(id);
-		return ResponseEntity.ok(obj);
+		return ResponseEntity.ok(new UsuarioDTO(obj));
 	}
 }
